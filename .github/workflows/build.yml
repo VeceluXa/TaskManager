@@ -3,9 +3,10 @@ on:
   push:
     branches:
       - master
+      - MainActivity
       - CreateActivity
       - EditActivity
-      - MainActivity
+
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
