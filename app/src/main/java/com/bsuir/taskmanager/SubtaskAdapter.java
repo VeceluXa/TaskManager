@@ -95,6 +95,10 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
         count--;
     }
 
+    public ArrayList<String> getSubtasks(){
+        return subtasks;
+    }
+
     static class SubtaskViewHolder extends RecyclerView.ViewHolder{
         EditText subtaskField;
         ImageButton delBtn;

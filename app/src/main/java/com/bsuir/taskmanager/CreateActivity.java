@@ -12,12 +12,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 
 public class CreateActivity extends AppCompatActivity {
 
     private EditText task;
+
     private SubtaskAdapter adapter = null;
     private RecyclerView rv;
+
+    private ArrayList<String> subtasks;
+    private String taskName;
+
+    private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,13 @@ public class CreateActivity extends AppCompatActivity {
 
 
     public void saveTask(View view) {
-
+        taskName = task.getText().toString();
+        if(adapter != null)
+            subtasks = adapter.getSubtasks();
+        else
+            subtasks.add("");
+        taskDatabaseHelper.insertTask(taskName, subtasks);
+        Intent MainActivity = new Intent(this, MainActivity.class);
+        startActivity(MainActivity);
     }
 }
