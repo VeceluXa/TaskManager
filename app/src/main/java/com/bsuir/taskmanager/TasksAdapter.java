@@ -37,12 +37,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.checkBoxTask.setText(data.get(position));
         holder.checkBoxTask.setChecked(false);
-        holder.checkBoxTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.checkBoxTask.isChecked()) {
-                    removeItem(holder.getAdapterPosition());
-                }
+        holder.checkBoxTask.setOnClickListener(view -> {
+            if (holder.checkBoxTask.isChecked()) {
+                removeItem(holder.getAdapterPosition());
             }
         });
 
@@ -53,7 +50,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         // Task item
         CheckBox checkBoxTask;
         public ViewHolder(@NonNull View itemView) {

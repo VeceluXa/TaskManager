@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
-    List<String> data = new LinkedList<String>();
+    List<String> data = new LinkedList<>();
 
     public List<String> getData() {
         return data;

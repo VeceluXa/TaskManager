@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TasksAdapter tasksAdapter = new TasksAdapter(getApplicationContext(), data);
         recyclerView.setAdapter(tasksAdapter);
+
+        // TEST FOR SONARCLOUD'S UNIT TESTS
+        database.addition(3,4);
     }
 
     public void onCreateTask(View view) {
