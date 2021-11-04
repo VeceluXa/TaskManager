@@ -1,6 +1,5 @@
 package com.bsuir.taskmanager;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,5 +12,9 @@ public class Database {
 
     public void setData(String data) {
         this.data.add(0, data);
+    }
+
+    public int addition(int a, int b) {
+        return a + b;
     }
 }

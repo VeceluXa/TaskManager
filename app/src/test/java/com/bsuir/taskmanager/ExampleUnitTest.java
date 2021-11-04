@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.provider.ContactsContract;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -12,6 +14,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        Database database = new Database();
+        assertEquals(database.addition(2, 2), 2 + 2);
     }
 }

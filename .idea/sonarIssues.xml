@@ -8,27 +8,12 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/Activity.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/Database.java">
-          <value>
-            <set />
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/FirstFragment.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/MainActivity.java">
           <value>
             <set />
           </value>
@@ -43,12 +28,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/TasksAdapter.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/Tests_MainActivity.java">
           <value>
             <set />
           </value>
@@ -63,7 +43,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/res/layout/task_item.xml">
+        <entry key="$PROJECT_DIR$/settings.gradle">
           <value>
             <set />
           </value>
