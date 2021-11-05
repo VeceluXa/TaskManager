@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$USER_HOME$/.gradle/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/lib/gradle-core-api-7.0.2.jar!/org/gradle/api/Project.class">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
@@ -19,11 +24,6 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/FirstFragment.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/MainActivity.java">
           <value>
             <set />
           </value>
@@ -53,7 +53,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/test/java/com/bsuir/taskmanager/DatabaseTest.java">
+        <entry key="$PROJECT_DIR$/build.gradle">
           <value>
             <set />
           </value>
