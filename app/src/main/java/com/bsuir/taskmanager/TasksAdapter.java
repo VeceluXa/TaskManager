@@ -1,6 +1,7 @@
 package com.bsuir.taskmanager;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,21 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
-    List<String> data;
+    //HashMap<String, String[]> data;
+    TaskDatabaseHelper database;
     Context context;
 
-    public TasksAdapter(Context context, List<String> data) {
+    public TasksAdapter(Context context, TaskDatabaseHelper database) {
         this.context = context;
-        this.data = data;
+        this.database = database;
     }
 
     private void removeItem(int i) {
-        data.remove(i);
+        database.deleteTaskByIndex(i);
         notifyItemRemoved(i);
     }
 
@@ -35,7 +38,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.checkBoxTask.setText(data.get(position));
+        // TODO Fix data input to tasks viewholder in MainActivity
+        HashMap<String, String[]> data = database.getTaskByIndex(position);
+        holder.checkBoxTask.setText(data.keySet().toString());
         holder.checkBoxTask.setChecked(false);
         holder.checkBoxTask.setOnClickListener(view -> {
             if (holder.checkBoxTask.isChecked()) {
