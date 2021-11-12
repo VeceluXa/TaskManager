@@ -17,7 +17,7 @@ public class TaskDatabaseHelper {
 
     TaskDatabaseHelper(Context context){
         this.context = context;
-        taskDbAdapter = new TaskDatabaseAdapter(this.context);
+        taskDbAdapter = new  TaskDatabaseAdapter(this.context);
         // System.out.println("HELLO");
         taskNameClmn = taskDbAdapter.getTaskNameClmn();
         subtasksNameClmn = taskDbAdapter.getSubtasksNameClmn();
@@ -86,7 +86,7 @@ public class TaskDatabaseHelper {
 
 
     public HashMap<String,String[]> getTaskByName(String taskName){
-        HashMap<String,String[]> data = new HashMap<String,String[]>();
+        HashMap<String,String[]> data = new HashMap<>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
         Cursor cursor = db.query(tableName,
                 new String[] {taskNameClmn, subtasksNameClmn},
@@ -102,7 +102,7 @@ public class TaskDatabaseHelper {
 
     // TODO Get Task !String! by index
     public HashMap<String,String[]> getTaskByIndex(int index){
-        HashMap<String,String[]> data = new HashMap<String,String[]>();
+        HashMap<String,String[]> data = new HashMap<>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
         Cursor cursor = db.query(tableName,
                 new String[] {taskNameClmn, subtasksNameClmn},
@@ -117,7 +117,7 @@ public class TaskDatabaseHelper {
     }
 
     public HashMap<String,String[]> getAllTasks(){
-        HashMap<String,String[]> data = new HashMap<String,String[]>();
+        HashMap<String,String[]> data = new HashMap<>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
         try {
             Cursor cursor = db.query(tableName,

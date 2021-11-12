@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    //Database database = new Database();
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
 
     @Override
@@ -32,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
         // TEST FOR SONARCLOUD'S UNIT TESTS
         //database.addition(3,4);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Update Tasks
+        //recyclerView.notifyAll();
+        System.out.println(database.getAllTasks());
     }
 
     public void onCreateTask(View view) {

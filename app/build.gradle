@@ -31,6 +31,7 @@ android {
 
     buildTypes {
         release {
+            testCoverageEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -67,17 +68,15 @@ dependencies {
 // apply plugin: 'com.vanniktech.android.junit.jacoco'
 
 
-jacoco {
-    toolVersion = "0.8.7"
-    //reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-}
 
-task jacocoTestReport(type:JacocoReport, dependsOn: ['testDebugUnitTest']) {
-    reports {
-        html.required = true
-        xml.required = true
-        csv.required = false
-    }
-}
+
+
+//task jacocoTestReport(type:JacocoReport, dependsOn: ['testDebugUnitTest']) {
+//    reports {
+//        html.required = true
+//        xml.required = true
+//        csv.required = false
+//    }
+//}
 
 

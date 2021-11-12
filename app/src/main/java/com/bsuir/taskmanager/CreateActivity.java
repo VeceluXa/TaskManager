@@ -1,6 +1,6 @@
 package com.bsuir.taskmanager;
 
-//import android.content.Intent;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -52,8 +52,6 @@ public class CreateActivity extends AppCompatActivity {
         else
             subtasks.add(""); // Error line! //
         taskDatabaseHelper.insertTask(taskName, subtasks);
-        //Intent MainActivity = new Intent(this, MainActivity.class);
-        //startActivity(MainActivity);
         finish();
     }
 }
