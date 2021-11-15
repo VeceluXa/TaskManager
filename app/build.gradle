@@ -13,7 +13,7 @@ sonarqube {
         property "sonar.projectKey", "VeceluXa_TaskManager"
         property "sonar.organization", "151004-java-android"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.coverage.jacoco.xmlReportPaths", fileTree(include: ['jacoco*.xml'], dir: "$buildDir/reports/jacoco").collect()
+        property "sonar.coverage.jacoco.xmlReportPaths", fileTree(include: ['*.xml'], dir: "$buildDir/reports/jacoco/jacocoUnitTestReport").collect()
     }
 }
 
@@ -48,10 +48,6 @@ android {
         unitTests.all {
             finalizedBy jacocoUnitTestReport
         }
-//        animationsDisabled true
-//        unitTests {
-//            includeAndroidResources = true
-//        }
     }
 
     buildFeatures {
@@ -76,7 +72,6 @@ dependencies {
 }
 
 task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'copyReport']) {
-    //$buildDir = asd// Location of the build directory for the build Variant
     def coverageSourceDirs = [
             "src/main/java"
     ]
@@ -104,6 +99,7 @@ task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', '
     }
 }
 
+// Task to copy debug file to jacoco dir
 tasks.register('copyReport', Copy) {
     doLast {
         mkdir "$buildDir/jacoco"
