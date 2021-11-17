@@ -6,37 +6,38 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
+    TasksAdapter tasksAdapter;
+    ArrayList<String> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //List<String> data = database.getData();
-       // HashMap<String, String[]> data = database2.getAllTasks();
+        data = new ArrayList<>(database.getAllTasks().keySet());
 
         recyclerView = findViewById(R.id.recyclerViewTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TasksAdapter tasksAdapter = new TasksAdapter(getApplicationContext(), database);
+        tasksAdapter = new TasksAdapter(this, data);
         recyclerView.setAdapter(tasksAdapter);
-
-        // TEST FOR SONARCLOUD'S UNIT TESTS
-        //database.addition(3,4);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Update Tasks
-        //recyclerView.notifyAll();
+        data.clear();
+        data.addAll(database.getAllTasks().keySet());
+        System.out.println(data);
+        tasksAdapter.notifyDataSetChanged();
         System.out.println(database.getAllTasks());
     }
 

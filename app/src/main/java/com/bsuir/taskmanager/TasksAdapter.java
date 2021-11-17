@@ -10,49 +10,52 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
-    //HashMap<String, String[]> data;
+    LayoutInflater inflater;
     TaskDatabaseHelper database;
-    Context context;
+    ArrayList<String> data;
+    private int count;
 
-    public TasksAdapter(Context context, TaskDatabaseHelper database) {
-        this.context = context;
-        this.database = database;
+    public TasksAdapter(Context context, ArrayList<String> data) {
+        this.inflater = LayoutInflater.from(context);
+        this.data = data;
+        this.count = data.size();
     }
 
     private void removeItem(int i) {
+        // TODO Fix delete task by index
         database.deleteTaskByIndex(i);
+        data.remove(i);
         notifyItemRemoved(i);
+        count--;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.task_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // TODO Fix data input to tasks viewholder in MainActivity
-        HashMap<String, String[]> data = database.getTaskByIndex(position);
-        holder.checkBoxTask.setText(data.keySet().toString());
+        // TODO Fix data to constructor
+        holder.checkBoxTask.setText(data.get(position));
         holder.checkBoxTask.setChecked(false);
         holder.checkBoxTask.setOnClickListener(view -> {
             if (holder.checkBoxTask.isChecked()) {
                 removeItem(holder.getAdapterPosition());
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return count;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -61,7 +64,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBoxTask = itemView.findViewById(R.id.checkBoxTask);
-            checkBoxTask.setChecked(false);
+            //checkBoxTask.setChecked(false);
         }
     }
 }
