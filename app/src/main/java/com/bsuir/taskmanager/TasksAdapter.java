@@ -22,16 +22,23 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     public TasksAdapter(Context context, ArrayList<String> data) {
         this.inflater = LayoutInflater.from(context);
+        database = new TaskDatabaseHelper(context);
         this.data = data;
         this.count = data.size();
     }
 
     private void removeItem(int i) {
         // TODO Fix delete task by index
+        System.out.println("DELETING");
         database.deleteTaskByIndex(i);
+        System.out.println("FUCK");
         data.remove(i);
         notifyItemRemoved(i);
         count--;
+
+        // Note: logging
+        System.out.println(i);
+        System.out.println(database.getAllTasks().keySet());
     }
 
     @NonNull
