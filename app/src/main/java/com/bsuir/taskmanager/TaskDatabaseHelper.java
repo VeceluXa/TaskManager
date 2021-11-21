@@ -185,6 +185,15 @@ public class TaskDatabaseHelper {
         return data;
     }
 
+    public ArrayList<String> getAllTasksNames(){
+        HashMap<Integer, String[]> data = getAllTasks();
+        ArrayList<String> taskNames = new ArrayList<String>();
+        for(int id : data.keySet()){
+            taskNames.add(data.get(id)[0]);
+        }
+        return taskNames;
+    }
+
     private String convertArrToStr(Object[] arr){
         String str = "";
         for(int i = 0; i < arr.length; i++){
