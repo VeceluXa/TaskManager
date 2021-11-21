@@ -27,19 +27,30 @@ public class TaskDatabaseAdapter extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {   }
-
-    public String getTableName(){
-        return  tableName;
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(oldVersion < newVersion) {
+            System.out.println("GO");
+            //db.execSQL("DROP TABLE " + tableName);
+            db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    taskNameClmn + " TEXT," +
+                    subtasksNameClmn + " TEXT);");
+        }
     }
 
-    public String getTaskNameClmn(){
-        return  taskNameClmn;
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion > newVersion) {
+            db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY," +
+                    taskNameClmn + " TEXT," +
+                    subtasksNameClmn + " TEXT);");
+        }
     }
 
-    public String getSubtasksNameClmn(){
-        return subtasksNameClmn;
-    }
+    public String getTableName(){ return tableName; }
+
+    public String getTaskNameClmn(){ return taskNameClmn; }
+
+    public String getSubtasksNameClmn(){ return subtasksNameClmn; }
 
     public String getIndexNameClmn(){ return indexNameClmn; }
 }

@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
     TasksAdapter tasksAdapter;
-    ArrayList<String> data;
+    ArrayList<Integer> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // Update Tasks
         data.clear();
+        System.out.println(database.getAllTasks().keySet());
         data.addAll(database.getAllTasks().keySet());
         System.out.println(data);
         tasksAdapter.notifyDataSetChanged();

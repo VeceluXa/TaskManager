@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CreateActivity extends AppCompatActivity {
@@ -52,6 +53,10 @@ public class CreateActivity extends AppCompatActivity {
         else
             subtasks.add(""); // Error line! //
         taskDatabaseHelper.insertTask(taskName, subtasks);
+        //taskDatabaseHelper.updateTaskByName(taskName, subtasks);
+        HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
+        for(int id : data.keySet())
+            System.out.print(data.get(id)[0] + " ");
         finish();
     }
 }
