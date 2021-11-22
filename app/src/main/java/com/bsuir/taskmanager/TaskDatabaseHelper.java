@@ -188,8 +188,9 @@ public class TaskDatabaseHelper {
     public ArrayList<String> getAllTasksNames(){
         HashMap<Integer, String[]> data = getAllTasks();
         ArrayList<String> taskNames = new ArrayList<String>();
-        for(int id : data.keySet()){
-            taskNames.add(data.get(id)[0]);
+        for(int id = 1; id <= data.size(); id++){
+            System.out.println(data.get(id)[0]);
+            taskNames.add(data.get(id)[0].toString());
         }
         return taskNames;
     }
