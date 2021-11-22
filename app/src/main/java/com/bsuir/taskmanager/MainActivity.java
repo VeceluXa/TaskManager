@@ -16,14 +16,16 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
     TasksAdapter tasksAdapter;
-    ArrayList<Integer> data;
+    ArrayList<String> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        data = new ArrayList<>(database.getAllTasks().keySet());
+        data = new ArrayList<>(database.getAllTasksNames());
+        System.out.println("PRINT DATA");
+        System.out.println(data);
 
         recyclerView = findViewById(R.id.recyclerViewTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // Update Tasks
         data.clear();
         System.out.println(database.getAllTasks().keySet());
-        data.addAll(database.getAllTasks().keySet());
+        data.addAll(database.getAllTasksNames());
         System.out.println(data);
         tasksAdapter.notifyDataSetChanged();
         System.out.println(database.getAllTasks());
