@@ -51,7 +51,7 @@ public class CreateActivity extends AppCompatActivity {
         if(adapter != null)
             subtasks = adapter.getSubtasks();
         else
-            subtasks.add(""); // Error line! //
+            subtasks.add(null); // Error line! //
         taskDatabaseHelper.insertTask(taskName, subtasks);
         //taskDatabaseHelper.updateTaskByName(taskName, subtasks);
         HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
