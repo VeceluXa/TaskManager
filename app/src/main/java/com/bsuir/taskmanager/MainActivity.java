@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,14 +24,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        data = new ArrayList<>(database.getAllTasksNames());
-        System.out.println("PRINT DATA");
-        System.out.println(data);
-
-        recyclerView = findViewById(R.id.recyclerViewTasks);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        tasksAdapter = new TasksAdapter(this, data);
-        recyclerView.setAdapter(tasksAdapter);
+        try {
+            data = new ArrayList<>(database.getAllTasksNames());
+            System.out.println("PRINT DATA");
+            System.out.println(data);
+            System.out.println("Everything is ok");
+            recyclerView = findViewById(R.id.recyclerViewTasks);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            tasksAdapter = new TasksAdapter(this, data);
+            recyclerView.setAdapter(tasksAdapter);
+        } catch (CursorIndexOutOfBoundsException e){
+            System.out.println("Error is " + e);
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -48,7 +48,7 @@ public class TaskDatabaseHelper {
         taskValues.put(taskNameClmn, taskName);
         taskValues.put(subtasksNameClmn, convertArrToStr(subtasks));
         System.out.println(db.insert(tableName, null, taskValues));
-        /*//db.execSQL("DROP TABLE " + tableName);
+        //db.execSQL("DROP TABLE " + tableName);
         // Note: logging
         db = taskDbAdapter.getReadableDatabase();
         HashMap<Integer,String> data = new HashMap<Integer,String>();
@@ -58,11 +58,12 @@ public class TaskDatabaseHelper {
         cursor.moveToFirst();
         //System.out.println(cursor.getString(0));
         do {
+
             System.out.println("Elements: " + cursor.getString(0) + ", " + cursor.getString(1));
             data.put(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
         }while(cursor.moveToNext());
         cursor.close();
-        System.out.println("ids is " + data.keySet());*/
+        System.out.println("ids is " + data.keySet());
         System.out.println("WELL DONE");
         db.close();
     }
@@ -175,9 +176,11 @@ public class TaskDatabaseHelper {
             Cursor cursor = db.query(tableName,
                     new String[]{indexNameClmn, taskNameClmn, subtasksNameClmn},
                     null, null, null, null, null);
-            cursor.moveToFirst();
+            if(!cursor.moveToFirst())
+                return data;
             do {
                 data.put(Integer.parseInt(cursor.getString(0)),(cursor.getString(1) + cursor.getString(2)).split(","));
+                System.out.println((cursor.getString(1) + cursor.getString(2)).split(","));
             }while (cursor.moveToNext());
         } catch (SQLiteException e){
             System.out.println("errror");
@@ -186,12 +189,21 @@ public class TaskDatabaseHelper {
     }
 
     public ArrayList<String> getAllTasksNames(){
-        HashMap<Integer, String[]> data = getAllTasks();
         ArrayList<String> taskNames = new ArrayList<String>();
-        for(int id = 1; id <= data.size(); id++){
-            System.out.println(data.get(id)[0]);
-            taskNames.add(data.get(id)[0].toString());
-        }
+        //try {
+            HashMap<Integer, String[]> data = getAllTasks();
+            System.out.println("ArrayList is " + taskNames);
+            for (int id = 1; id <= data.size(); id++) {
+                try {
+                    System.out.println("There is our elements: " + data.get(id)[0]);
+                    taskNames.add(data.get(id)[0].toString());
+                } catch (Throwable e) {
+                    System.out.println("Error in helper is " + e);
+                }
+            }
+        /*} catch(Throwable e){
+            System.out.println("Error in helper is " + e);
+        }*/
         return taskNames;
     }
 
