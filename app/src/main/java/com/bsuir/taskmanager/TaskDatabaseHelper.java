@@ -18,9 +18,9 @@ import java.util.TreeMap;
 
 public class TaskDatabaseHelper {
     private Context context;
-    TaskDatabaseAdapter taskDbAdapter;
-    ContentValues taskValues;
-    String taskNameClmn, subtasksNameClmn, tableName, indexNameClmn;
+    private TaskDatabaseAdapter taskDbAdapter;
+    private ContentValues taskValues;
+    private String taskNameClmn, subtasksNameClmn, tableName, indexNameClmn;
 
     TaskDatabaseHelper(Context context){
         this.context = context;
@@ -52,7 +52,7 @@ public class TaskDatabaseHelper {
         System.out.println(db.insert(tableName, null, taskValues));
         //db.execSQL("DROP TABLE " + tableName);
         // Note: logging
-        db = taskDbAdapter.getReadableDatabase();
+        /*db = taskDbAdapter.getReadableDatabase();
         HashMap<Integer,String> data = new HashMap<Integer,String>();
         Cursor cursor = db.query(tableName,
                 new String[]{indexNameClmn, taskNameClmn, subtasksNameClmn},
@@ -66,7 +66,7 @@ public class TaskDatabaseHelper {
         cursor.close();
         System.out.println("ids is " + data.keySet());
         System.out.println("WELL DONE");
-        db.close();
+        db.close();*/
     }
 
     public void updateTaskByName(String taskName, ArrayList<String> subtasks){
@@ -90,7 +90,7 @@ public class TaskDatabaseHelper {
         db.close();
 
         // Note: logging
-        System.out.println("WELL DONE");
+        //System.out.println("WELL DONE");
     }
 
     /*public void deleteTaskByName(String taskName){
@@ -105,8 +105,11 @@ public class TaskDatabaseHelper {
         db.delete(tableName,
                 indexNameClmn + " = ?",
                 new String[] {Integer.toString(index)});
+        db.close();
+        rewriteDB();
+
         // Note: logging
-        db = taskDbAdapter.getReadableDatabase();
+        /*db = taskDbAdapter.getReadableDatabase();
         HashMap<String,String> data = new HashMap<>();
         Cursor cursor = db.query(tableName,
                 new String[]{indexNameClmn, taskNameClmn},
@@ -119,13 +122,12 @@ public class TaskDatabaseHelper {
         }
         System.out.println(data.keySet());
         //////////////
-        db.close();
-        rewriteDB();
+
 
         // Note: logging
         db = taskDbAdapter.getReadableDatabase();
-        /*HashMap<String,String>*/ data = new HashMap<>();
-        /*Cursor*/ cursor = db.query(tableName,
+        /*HashMap<String,String> data = new HashMap<>();
+        /*Cursor cursor = db.query(tableName,
                 new String[]{indexNameClmn, taskNameClmn},
                 null, null, null, null, null);
         while (true) {
@@ -135,7 +137,7 @@ public class TaskDatabaseHelper {
                 break;
         }
         System.out.println(data.keySet());
-        System.out.println("May be deleted");
+        System.out.println("May be deleted");*/
     }
 
 
@@ -154,7 +156,6 @@ public class TaskDatabaseHelper {
         return data;
     }*/
 
-    // TODO Get Task !String! by index
     public HashMap<String,String[]> getTaskByIndex(int index){
         HashMap<String,String[]> data = new HashMap<>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
@@ -173,6 +174,7 @@ public class TaskDatabaseHelper {
     public HashMap<Integer,String[]> getAllTasks(){
         HashMap<Integer,String[]> data = new HashMap<Integer, String[]>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
+        //db.execSQL("DROP TABLE " + tableName);
         try {
             @SuppressLint("Recycle") Cursor cursor = db.query(tableName,
                     new String[]{indexNameClmn, taskNameClmn, subtasksNameClmn},
@@ -180,7 +182,7 @@ public class TaskDatabaseHelper {
             while(cursor.moveToNext()){
                 data.put(Integer.parseInt(cursor.getString(0)),
                         (cursor.getString(1) + "," + cursor.getString(2)).split(","));
-                System.out.println((cursor.getString(1)+ "," + cursor.getString(2)).split(","));
+                //System.out.println((cursor.getString(1)+ "," + cursor.getString(2)).split(","));
             }
         } catch (SQLiteException e){
             System.out.println("errror");
@@ -190,20 +192,12 @@ public class TaskDatabaseHelper {
 
     public ArrayList<String> getAllTasksNames(){
         ArrayList<String> taskNames = new ArrayList<String>();
-        //try {
-            HashMap<Integer, String[]> data = getAllTasks();
-            System.out.println("ArrayList is " + taskNames);
-            for (int id = 1; id <= data.size(); id++) {
-                try {
-                    System.out.println("There is our elements: " + data.get(id)[0]);
-                    taskNames.add(data.get(id)[0].toString());
-                } catch (Throwable e) {
-                    System.out.println("Error in helper is " + e);
-                }
-            }
-        /*} catch(Throwable e){
-            System.out.println("Error in helper is " + e);
-        }*/
+        HashMap<Integer, String[]> data = getAllTasks();
+        //System.out.println("ArrayList is " + taskNames);
+        for (int id = 1; id <= data.size(); id++) {
+            System.out.println("There is our elements: " + data.get(id)[0]);
+            taskNames.add(data.get(id)[0].toString());
+        }
         return taskNames;
     }
 
@@ -232,7 +226,7 @@ public class TaskDatabaseHelper {
             System.out.println(data.get(id)[0]);
             insertTask(data.get(id)[0], data.get(id));
         }
-        System.out.println("trying to delete");
+        //System.out.println("trying to delete");
     }
 }
 

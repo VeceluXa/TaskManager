@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TaskDatabaseAdapter extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "TaskDB";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private static final String tableName = "TASKS";
     private static final String taskNameClmn = "TASK_NAME";
@@ -21,7 +21,7 @@ public class TaskDatabaseAdapter extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         System.out.println("HO");
-        db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+        db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY," +
                 taskNameClmn + " TEXT," +
                 subtasksNameClmn + " TEXT);");
     }
@@ -31,7 +31,7 @@ public class TaskDatabaseAdapter extends SQLiteOpenHelper {
         if(oldVersion < newVersion) {
             System.out.println("GO");
             //db.execSQL("DROP TABLE " + tableName);
-            db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            db.execSQL("CREATE TABLE TASKS (" + indexNameClmn + " INTEGER PRIMARY KEY," +
                     taskNameClmn + " TEXT," +
                     subtasksNameClmn + " TEXT);");
         }

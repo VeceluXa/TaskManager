@@ -34,7 +34,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
      */
     private void removeItem(int i) {
         // TODO Fix delete task by index
-        database.deleteTaskByIndex(i);
+        database.deleteTaskByIndex(i+1);
         data.remove(i);
         notifyItemRemoved(i);
         count--;
