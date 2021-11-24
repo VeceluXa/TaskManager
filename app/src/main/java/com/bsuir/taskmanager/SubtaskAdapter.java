@@ -1,6 +1,8 @@
 package com.bsuir.taskmanager;
 
 import android.annotation.SuppressLint;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
     private final ArrayList<String> subtasks = new ArrayList<String>();
 
     SubtaskAdapter(){
-
+        //subtasks.add(0, null);
         count = 1;
     }
 
@@ -36,11 +38,12 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(@NonNull SubtaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SubtaskViewHolder holder,int position) {
         int maxIndex = count - 1;
 
         if(maxIndex > 1) {
             if (position < maxIndex) {
+                System.out.println("Putting on: " + position + " - " + maxIndex + "; " + subtasks.get(position));
                 holder.subtaskField.setText(subtasks.get(position));
                 holder.delBtn.setVisibility(View.VISIBLE);
             } else {
@@ -49,25 +52,58 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
             }
         }
 
-        holder.subtaskField.setOnKeyListener(new View.OnKeyListener() {
+        holder.subtaskField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //int maxIndex = count - 1;
+                //int position = holder.getAdapterPosition();
+                //System.out.println(position + " - " + maxIndex);
+                System.out.println(editable.toString());
+                System.out.println(subtasks);
+                try {
+                    subtasks.set(holder.getAdapterPosition(), editable.toString());
+                } catch (IndexOutOfBoundsException e){
+                    //subtasks.add(holder.getAdapterPosition(), editable.toString());
+                    if(count <= 10)
+                        addItem(editable.toString());
+                    holder.delBtn.setVisibility(View.VISIBLE);
+                }
+                //System.out.println(subtasks);
+            }
 
             @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        });
+
+        /*holder.subtaskField.setOnKeyListener(new View.OnKeyListener() {
+            @Override
             public boolean onKey(View ___, int __, KeyEvent keyEvent) {
-                int position = holder.getAdapterPosition();
                 String text = holder.subtaskField.getText().toString();
                 int maxIndex = count - 1;
+                int position = holder.getAdapterPosition();
+                System.out.println(position + " - " + maxIndex);
+                System.out.println(text);
+                System.out.println(subtasks);
 
                 if((keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) &&
                         (position == maxIndex) &&
                         (!text.equals(""))){
                     addItem(text);
+                    System.out.println("Setting visibilty");
                     holder.delBtn.setVisibility(View.VISIBLE);
+                    System.out.println("Adder: " + subtasks);
                     return true;
                 }
-                else
+                else {
+                    System.out.println("We goes there");
+                    //System.out.println(subtasks);
                     return false;
+                }
             }
-        });
+        });*/
 
         holder.delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,9 +120,18 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
     }
 
     void addItem(String text){
+        System.out.println("Trying to add 2");
         subtasks.add(text);
-        notifyItemInserted(count);
+        System.out.println("Notify");
+        System.out.println(count);
+        try {
+            notifyItemInserted(count);
+        } catch (Throwable e){
+            System.out.println(e);
+        }
+        System.out.println("Counting");
         count++;
+        System.out.println("Counted");
     }
 
     void rmItem(int position){
@@ -110,3 +155,6 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
         }
     }
 }
+
+
+
