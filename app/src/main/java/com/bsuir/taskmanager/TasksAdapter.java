@@ -28,7 +28,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         this.count = data.size();
     }
 
-    /**
+     /**
      * Remove item from Database and RecyclerView by index.
      * @param i
      */

@@ -56,7 +56,7 @@ public class CreateActivity extends AppCompatActivity {
         //taskDatabaseHelper.updateTaskByName(taskName, subtasks);
         HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
         for(int id : data.keySet())
-            System.out.print(data.get(id)[0] + " ");
+            System.out.println(data.get(id)[0] + " ");
         finish();
     }
 }

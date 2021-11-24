@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+
+
 public class TaskDatabaseHelper {
     private Context context;
     TaskDatabaseAdapter taskDbAdapter;
@@ -53,15 +55,14 @@ public class TaskDatabaseHelper {
         db = taskDbAdapter.getReadableDatabase();
         HashMap<Integer,String> data = new HashMap<Integer,String>();
         Cursor cursor = db.query(tableName,
-                new String[]{indexNameClmn, taskNameClmn},
+                new String[]{indexNameClmn, taskNameClmn, subtasksNameClmn},
                 null, null, null, null, null);
         cursor.moveToFirst();
-        //System.out.println(cursor.getString(0));
+        System.out.println(cursor.getString(0));
         do {
-
             System.out.println("Elements: " + cursor.getString(0) + ", " + cursor.getString(1));
             data.put(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
-        }while(cursor.moveToNext());
+        } while (cursor.moveToNext());
         cursor.close();
         System.out.println("ids is " + data.keySet());
         System.out.println("WELL DONE");
@@ -170,18 +171,17 @@ public class TaskDatabaseHelper {
     }
 
     public HashMap<Integer,String[]> getAllTasks(){
-        HashMap<Integer,String[]> data = new HashMap<>();
+        HashMap<Integer,String[]> data = new HashMap<Integer, String[]>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
         try {
-            Cursor cursor = db.query(tableName,
+            @SuppressLint("Recycle") Cursor cursor = db.query(tableName,
                     new String[]{indexNameClmn, taskNameClmn, subtasksNameClmn},
                     null, null, null, null, null);
-            if(!cursor.moveToFirst())
-                return data;
-            do {
-                data.put(Integer.parseInt(cursor.getString(0)),(cursor.getString(1) + cursor.getString(2)).split(","));
-                System.out.println((cursor.getString(1) + cursor.getString(2)).split(","));
-            }while (cursor.moveToNext());
+            while(cursor.moveToNext()){
+                data.put(Integer.parseInt(cursor.getString(0)),
+                        (cursor.getString(1) + "," + cursor.getString(2)).split(","));
+                System.out.println((cursor.getString(1)+ "," + cursor.getString(2)).split(","));
+            }
         } catch (SQLiteException e){
             System.out.println("errror");
         }
@@ -218,7 +218,7 @@ public class TaskDatabaseHelper {
     private String convertArrToStr(ArrayList<String> arr){
         String str = "";
         for(int i = 0; i < arr.size(); i++){
-            str += arr.toString();
+            str += arr.get(i).toString() + ",";
         }
         return str;
     }
