@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TaskDatabaseAdapter extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "TaskDB";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
 
     private static final String tableName = "TASKS";
     private static final String taskNameClmn = "TASK_NAME";

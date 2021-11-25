@@ -30,6 +30,9 @@ public class TaskDatabaseHelper {
         subtasksNameClmn = taskDbAdapter.getSubtasksNameClmn();
         indexNameClmn = taskDbAdapter.getIndexNameClmn();
         tableName = taskDbAdapter.getTableName();
+
+//        SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
+//        db.execSQL("DROP TABLE " + tableName);
     }
 
 
@@ -40,6 +43,7 @@ public class TaskDatabaseHelper {
         taskValues.put(subtasksNameClmn, convertArrToStr(subtasks));
         db.insert(tableName, null, taskValues);
         System.out.println("WELL DONE");
+
         db.close();
     }
 
