@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Class for SQLite to connect with device
+ */
 public class TaskDatabaseAdapter extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "TaskDB";

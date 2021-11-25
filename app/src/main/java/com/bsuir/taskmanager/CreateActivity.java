@@ -1,6 +1,7 @@
 package com.bsuir.taskmanager;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Class where tasks are created
+ */
 public class CreateActivity extends AppCompatActivity {
 
     private EditText task;
@@ -27,6 +30,10 @@ public class CreateActivity extends AppCompatActivity {
 
     private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
+    /**
+     * This method gets called when CreateActivity starts
+     * @param savedInstanceState saved configuration
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +47,16 @@ public class CreateActivity extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
+            /**
+             * This method gets called when user presses Enter to create new task
+             * @param s editable string
+             */
             @Override
             public void afterTextChanged(Editable s) {
                 if (adapter == null) {
@@ -67,7 +79,10 @@ public class CreateActivity extends AppCompatActivity {
     }
 
 
-    // TODO Fix bug onSaveTask.
+    /**
+     * This method gets called when user saves task
+     * @param view view to call MainActivity
+     */
     public void onSaveTask(View view) {
         String taskName = task.getText().toString();
         if(adapter != null)
@@ -79,6 +94,9 @@ public class CreateActivity extends AppCompatActivity {
         HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
         for(int id : data.keySet())
             System.out.println(data.get(id)[0] + " ");
-        finish();
+
+        // Start MainActivity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
