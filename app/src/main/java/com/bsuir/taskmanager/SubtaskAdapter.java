@@ -36,6 +36,8 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
 
 
 
+
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull SubtaskViewHolder holder,int position) {

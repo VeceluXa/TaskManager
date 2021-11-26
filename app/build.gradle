@@ -20,7 +20,8 @@ sonarqube {
 
 
 android {
-    compileSdk 31
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.bsuir.taskmanager"

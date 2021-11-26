@@ -13,12 +13,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build/reports/tests/testDebugUnitTest/index.html">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/build/reports/tests/testReleaseUnitTest/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/bsuir/taskmanager/TasksAdapterTest.java">
           <value>
             <set />
           </value>
@@ -48,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/SubtaskAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/bsuir/taskmanager/TasksAdapter.java">
           <value>
             <set />
@@ -69,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/com/bsuir/taskmanager/MainActivityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/com/bsuir/taskmanager/TasksAdapterTest.java">
           <value>
             <set />
           </value>

@@ -38,7 +38,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         this.data = data;
     }
 
-    private final Context context;
+    private Context context;
 
 
     /**
@@ -53,8 +53,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         this.count = data.size();
     }
 
+    public TasksAdapter(ArrayList<String> data) {
+        this.data = data;
+    }
 
-     /**
+    /**
      * Remove item from database and RecyclerView by index.
      * @param i position of ViewHolder
      */
