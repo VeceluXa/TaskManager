@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,11 +13,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
+        android:autofillHints="name"
         android:gravity="bottom"
         android:hint="@string/task_name"
-        android:autofillHints="name"
+        android:imeOptions="actionGo"
         android:inputType="textPersonName"
-        android:imeOptions="actionGo"/>
+        android:minHeight="48dp"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/saveBtn"
@@ -26,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:onClick="onSaveTask"
         android:text="@string/save_btn" />
 
