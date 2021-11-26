@@ -1,7 +1,6 @@
 package com.bsuir.taskmanager;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Adapter for RecyclerView in MainActivity
@@ -23,6 +20,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     TaskDatabaseHelper database;
     ArrayList<String> data;
     private int count;
+    private Context context;
+
+    // Listener for TextView in ViewHolders
+    private ItemClickListener mEditTaskListener;
+
 
     /**
      * Constructor for TasksAdapter
@@ -31,9 +33,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
      */
     public TasksAdapter(Context context, ArrayList<String> data) {
         this.inflater = LayoutInflater.from(context);
+        this.context = context;
         database = new TaskDatabaseHelper(context);
         this.data = data;
         this.count = data.size();
+    }
+
+    public void addEditTaskListener(ItemClickListener listener) {
+        mEditTaskListener = listener;
     }
 
      /**
@@ -41,15 +48,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
      * @param i position of ViewHolder
      */
     private void removeItem(int i) {
-        // TODO Fix delete task by index
         database.deleteTaskByIndex(i+1);
         data.remove(i);
         notifyItemRemoved(i);
         count--;
-
-        // Note: logging
-        System.out.println(i);
-        System.out.println(database.getAllTasks().keySet());
     }
 
     /**
@@ -76,9 +78,20 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         // TODO Fix data to constructor
         holder.textTask.setText(data.get(position));
         holder.checkBoxTask.setChecked(false);
+
+        // Clicked on checkbox button
         holder.checkBoxTask.setOnClickListener(view -> {
             if (holder.checkBoxTask.isChecked()) {
                 removeItem(holder.getAdapterPosition());
+            }
+        });
+
+        // Clicked on text
+        holder.textTask.setOnClickListener(v -> {
+            // Check if clicked
+            if (mEditTaskListener != null) {
+                // Call onEditTask method in MainActivity
+                mEditTaskListener.onEditTask(position);
             }
         });
     }
@@ -90,6 +103,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return count;
+    }
+
+    // Interface for TextView listener
+    public interface ItemClickListener {
+        void onEditTask(int position);
     }
 
     /**
@@ -108,7 +126,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             super(itemView);
             checkBoxTask = itemView.findViewById(R.id.checkBoxTask);
             textTask = itemView.findViewById(R.id.textTask);
-            //checkBoxTask.setChecked(false);
         }
     }
 }

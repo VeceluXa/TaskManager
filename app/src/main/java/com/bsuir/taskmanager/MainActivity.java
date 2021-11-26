@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Class for main window where all tasks are shown
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TasksAdapter.ItemClickListener{
 
     RecyclerView recyclerView;
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
@@ -31,18 +30,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            data = new ArrayList<>(database.getAllTasksNames());
-            System.out.println("PRINT DATA");
-            System.out.println(data);
-            System.out.println("Everything is ok");
-            recyclerView = findViewById(R.id.recyclerViewTasks);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            tasksAdapter = new TasksAdapter(this, data);
-            recyclerView.setAdapter(tasksAdapter);
-        } catch (CursorIndexOutOfBoundsException e){
-            System.out.println("Error is " + e);
-        }
+        // Set data from database
+        data = new ArrayList<>(database.getAllTasksNames());
+
+        // Set up RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewTasks);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tasksAdapter = new TasksAdapter(this, data);
+        // Add listener to adapter
+        tasksAdapter.addEditTaskListener(this);
+        recyclerView.setAdapter(tasksAdapter);
+
     }
 
     /**
@@ -67,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onCreateTask(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
+    }
+
+    // Implement listener's method
+    @Override
+    public void onEditTask(int position) {
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra(Intent.EXTRA_INDEX, position);
         startActivity(intent);
     }
 }
