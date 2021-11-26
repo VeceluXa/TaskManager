@@ -28,7 +28,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clickable="true"
-                android:onClick="onEditTask"
                 android:gravity="center|left"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
