@@ -1,7 +1,6 @@
 package com.bsuir.taskmanager;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -21,13 +20,26 @@ import java.util.HashMap;
  */
 public class CreateActivity extends AppCompatActivity {
 
+    /**
+     * Text field for task name
+     */
     private EditText task;
 
+    /**
+     * Adapter of subtasks for RecyclerView
+     */
     private SubtaskAdapter adapter = null;
+    /**
+     * RecyclerView to show subtasks
+     */
     private RecyclerView rv;
-
+    /**
+     * Subtasks
+     */
     private ArrayList<String> subtasks;
-
+    /**
+     * Object of TaskDatabaseHelper to communicate with database
+     */
     private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
     /**
