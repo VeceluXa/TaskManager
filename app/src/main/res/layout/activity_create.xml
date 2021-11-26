@@ -16,6 +16,7 @@
         android:layout_marginTop="6dp"
         android:gravity="bottom"
         android:hint="@string/task_name"
+        android:autofillHints="name"
         android:inputType="textPersonName"
         android:imeOptions="actionGo"/>
 

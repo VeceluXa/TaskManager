@@ -86,7 +86,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         database = new TaskDatabaseHelper(holder.checkBoxTask.getContext());
-        // TODO Fix data to constructor
         holder.textTask.setText(data.get(position));
         holder.checkBoxTask.setChecked(false);
 
