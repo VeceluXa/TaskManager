@@ -14,11 +14,23 @@ import java.util.ArrayList;
 /**
  * Class for main window where all tasks are shown
  */
-public class MainActivity extends AppCompatActivity implements TasksAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity {
 
+    /**
+     * RecyclerView to display tasks on MainActivity
+     */
     RecyclerView recyclerView;
+    /**
+     * Database where tasks are stored
+     */
     TaskDatabaseHelper database = new TaskDatabaseHelper(this);
+    /**
+     * Adapter for RecyclerView
+     */
     TasksAdapter tasksAdapter;
+    /**
+     * ArrayList of Database tasks for ease of use
+     */
     ArrayList<String> data;
 
     /**
@@ -38,13 +50,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Item
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         tasksAdapter = new TasksAdapter(this, data);
         // Add listener to adapter
-        tasksAdapter.addEditTaskListener(this);
         recyclerView.setAdapter(tasksAdapter);
 
     }
 
     /**
-     * This method gets called when activity becomes in focus
+     * This method gets called when activity goes in focus.
+     * In our case after CreateActivity is finished
      */
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -52,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Item
         super.onResume();
         // Update Tasks
         data.clear();
-        System.out.println(database.getAllTasks().keySet());
         data.addAll(database.getAllTasksNames());
-        System.out.println(data);
-        tasksAdapter.notifyDataSetChanged();
-        System.out.println(database.getAllTasks());
+
+        // Replace tasksAdapter with the new one
+        tasksAdapter = new TasksAdapter(this, data);
+        // Swap adapter in RecyclerView
+        recyclerView.setAdapter(tasksAdapter);
+
     }
 
     /**
@@ -65,14 +79,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Item
      */
     public void onCreateTask(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
-    }
-
-    // Implement listener's method
-    @Override
-    public void onEditTask(int position) {
-        Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra(Intent.EXTRA_INDEX, position);
         startActivity(intent);
     }
 }

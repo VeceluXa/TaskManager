@@ -95,8 +95,7 @@ public class CreateActivity extends AppCompatActivity {
         for(int id : data.keySet())
             System.out.println(data.get(id)[0] + " ");
 
-        // Start MainActivity
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        // Close CreateActivity by calling onFinish()
+        finish();
     }
 }

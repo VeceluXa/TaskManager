@@ -17,6 +17,8 @@ public class EditActivity extends AppCompatActivity {
         id = getIntent().getExtras().getInt(Intent.EXTRA_INDEX);
 
         TextView textView = findViewById(R.id.editView);
-        textView.setText(id);
+        textView.setText(String.valueOf(id));
     }
+
+    //TODO Add methods for EditActivity
 }

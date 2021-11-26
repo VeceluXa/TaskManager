@@ -1,6 +1,7 @@
 package com.bsuir.taskmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,28 @@ import java.util.ArrayList;
  * Adapter for RecyclerView in MainActivity
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
-    LayoutInflater inflater;
+    /**
+     * Database object
+     */
     TaskDatabaseHelper database;
+    /**
+     * ArrayList that stores tasksName from database
+     */
     ArrayList<String> data;
+    /**
+     * Counter for size of data
+     */
     private int count;
-    private Context context;
 
-    // Listener for TextView in ViewHolders
-    private ItemClickListener mEditTaskListener;
+    /**
+     * Setter for data
+     * @param data ArrayList of values from database
+     */
+    public void setData(ArrayList<String> data) {
+        this.data = data;
+    }
+
+    private final Context context;
 
 
     /**
@@ -32,16 +47,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
      * @param data ArrayList for database
      */
     public TasksAdapter(Context context, ArrayList<String> data) {
-        this.inflater = LayoutInflater.from(context);
         this.context = context;
         database = new TaskDatabaseHelper(context);
         this.data = data;
         this.count = data.size();
     }
 
-    public void addEditTaskListener(ItemClickListener listener) {
-        mEditTaskListener = listener;
-    }
 
      /**
      * Remove item from database and RecyclerView by index.
@@ -63,7 +74,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.task_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.task_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -79,20 +90,18 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         holder.textTask.setText(data.get(position));
         holder.checkBoxTask.setChecked(false);
 
-        // Clicked on checkbox button
-        holder.checkBoxTask.setOnClickListener(view -> {
+        // Clicked on CheckBox
+        holder.checkBoxTask.setOnClickListener(v -> {
             if (holder.checkBoxTask.isChecked()) {
                 removeItem(holder.getAdapterPosition());
             }
         });
 
-        // Clicked on text
+        // Clicked on TextView
         holder.textTask.setOnClickListener(v -> {
-            // Check if clicked
-            if (mEditTaskListener != null) {
-                // Call onEditTask method in MainActivity
-                mEditTaskListener.onEditTask(position);
-            }
+            Intent intent = new Intent(context, EditActivity.class);
+            intent.putExtra(Intent.EXTRA_INDEX, holder.getAdapterPosition());
+            context.startActivity(intent);
         });
     }
 
@@ -103,11 +112,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return count;
-    }
-
-    // Interface for TextView listener
-    public interface ItemClickListener {
-        void onEditTask(int position);
     }
 
     /**
