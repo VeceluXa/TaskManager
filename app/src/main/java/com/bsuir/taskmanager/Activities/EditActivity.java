@@ -1,10 +1,12 @@
-package com.bsuir.taskmanager;
+package com.bsuir.taskmanager.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.bsuir.taskmanager.R;
 
 public class EditActivity extends AppCompatActivity {
 

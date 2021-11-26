@@ -1,4 +1,4 @@
-package com.bsuir.taskmanager;
+package com.bsuir.taskmanager.Activities;
 
 
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bsuir.taskmanager.Adapters.SubtaskAdapter;
+import com.bsuir.taskmanager.R;
+import com.bsuir.taskmanager.TaskDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.bsuir.taskmanager;
+package com.bsuir.taskmanager.Adapters;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,7 +38,7 @@ public class TaskDatabaseAdapter extends SQLiteOpenHelper {
      * Database Adapter constructor
      * @param context context for activity
      */
-    TaskDatabaseAdapter(Context context){
+    public TaskDatabaseAdapter(Context context){
         super(context, DB_NAME,null, DB_VERSION);
     }
 

@@ -1,4 +1,4 @@
-package com.bsuir.taskmanager;
+package com.bsuir.taskmanager.Adapters;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bsuir.taskmanager.R;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
     /**
      * Basic constructor for subtasks
      */
-    SubtaskAdapter(){
+    public SubtaskAdapter(){
         count = 1;
     }
 
