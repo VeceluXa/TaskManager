@@ -275,10 +275,7 @@ public class TaskDatabaseHelper {
         return str.toString();
     }
 
-<<<<<<< HEAD
-    public String convertArrToStr(ArrayList<String> arr){
-        String str = "";
-=======
+
     /**
      * Convert ArrayList<String> to String to store in database
      * @param arr array
@@ -286,7 +283,6 @@ public class TaskDatabaseHelper {
      */
     private String convertArrToStr(ArrayList<String> arr){
         StringBuilder str = new StringBuilder();
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2
         for(int i = 0; i < arr.size(); i++){
             str.append(arr.get(i)).append(",");
         }

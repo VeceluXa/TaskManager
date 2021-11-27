@@ -146,14 +146,6 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
 
     }
 
-<<<<<<< HEAD:app/src/main/java/com/bsuir/taskmanager/SubtaskAdapter.java
-
-=======
-    /**
-     * This item gets called to get item count for ViewHolder
-     * @return counf of ArrayList subtasks
-     */
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2:app/src/main/java/com/bsuir/taskmanager/Adapters/SubtaskAdapter.java
     @Override
     public int getItemCount() {
         return count;

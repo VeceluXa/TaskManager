@@ -1,10 +1,5 @@
 package com.bsuir.taskmanager.Activities;
 
-<<<<<<< HEAD:app/src/main/java/com/bsuir/taskmanager/CreateActivity.java
-import android.content.Intent;
-=======
-
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2:app/src/main/java/com/bsuir/taskmanager/Activities/CreateActivity.java
 import android.os.Bundle;
 
 import android.text.Editable;

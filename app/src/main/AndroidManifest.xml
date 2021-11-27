@@ -19,8 +19,8 @@
         <activity
             android:name=".Activities.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.TaskManager.NoActionBar">
+            android:label="@string/app_name">
+<!--            android:theme="@style/Theme.TaskManager.NoActionBar">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
