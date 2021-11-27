@@ -1,6 +1,10 @@
-package com.bsuir.taskmanager;
+package com.bsuir.taskmanager.Activities;
 
+<<<<<<< HEAD:app/src/main/java/com/bsuir/taskmanager/CreateActivity.java
 import android.content.Intent;
+=======
+
+>>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2:app/src/main/java/com/bsuir/taskmanager/Activities/CreateActivity.java
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -12,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bsuir.taskmanager.Adapters.SubtaskAdapter;
+import com.bsuir.taskmanager.R;
+import com.bsuir.taskmanager.TaskDatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,13 +28,26 @@ import java.util.HashMap;
  */
 public class CreateActivity extends AppCompatActivity {
 
+    /**
+     * Text field for task name
+     */
     private EditText task;
 
+    /**
+     * Adapter of subtasks for RecyclerView
+     */
     private SubtaskAdapter adapter = null;
+    /**
+     * RecyclerView to show subtasks
+     */
     private RecyclerView rv;
-
+    /**
+     * Subtasks
+     */
     private ArrayList<String> subtasks;
-
+    /**
+     * Object of TaskDatabaseHelper to communicate with database
+     */
     private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
     /**

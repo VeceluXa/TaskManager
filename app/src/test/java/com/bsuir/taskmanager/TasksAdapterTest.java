@@ -1,5 +1,7 @@
 package com.bsuir.taskmanager;
 
+import com.bsuir.taskmanager.Adapters.TasksAdapter;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

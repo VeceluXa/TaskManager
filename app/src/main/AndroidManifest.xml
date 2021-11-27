@@ -11,13 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManager">
         <activity
-            android:name=".EditActivity"
+            android:name=".Activities.EditActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateActivity"
+            android:name=".Activities.CreateActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TaskManager.NoActionBar">
