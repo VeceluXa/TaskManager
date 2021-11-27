@@ -1,6 +1,5 @@
 package com.bsuir.taskmanager;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 

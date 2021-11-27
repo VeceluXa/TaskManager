@@ -13,6 +13,7 @@
         android:layout_marginBottom="15dp"
         android:gravity="bottom"
         android:hint="@string/subtask"
+        android:text=""
         android:autofillHints="name"
         android:textColorHint="#AAA"
         style="@style/CardView.Light"

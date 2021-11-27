@@ -41,6 +41,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull SubtaskViewHolder holder,int position) {
+
         int maxIndex = count - 1;
 
         if(maxIndex > 1) {
@@ -116,6 +117,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
 
     }
 
+
     @Override
     public int getItemCount() {
         return count;
@@ -155,6 +157,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
             delBtn = (ImageButton) view.findViewById(R.id.delbtn);
             delBtn.setVisibility(View.GONE);
         }
+
     }
 }
 

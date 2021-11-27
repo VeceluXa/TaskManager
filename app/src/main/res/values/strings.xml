@@ -5,4 +5,5 @@
     <string name="subtask">Subtask for the task</string>
     <string name="task_name">Enter your task name here</string>
     <string name="save_btn">save</string>
+    <string name="delete_btn">delete</string>
 </resources>

@@ -213,7 +213,7 @@ public class TaskDatabaseHelper {
         return str;
     }
 
-    private String convertArrToStr(ArrayList<String> arr){
+    public String convertArrToStr(ArrayList<String> arr){
         String str = "";
         for(int i = 0; i < arr.size(); i++){
             str += arr.get(i).toString() + ",";
