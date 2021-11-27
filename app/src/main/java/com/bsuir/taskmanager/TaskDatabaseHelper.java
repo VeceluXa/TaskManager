@@ -7,51 +7,25 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-import com.bsuir.taskmanager.Adapters.TaskDatabaseAdapter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Objects;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 
 public class TaskDatabaseHelper {
-    /**
-     * Context for TaskDatabaseAdapter
-     */
-    private final Context context;
-    /**
-     * Object of TaskDatabaseAdapter to communicate with database
-     */
-    private final TaskDatabaseAdapter taskDbAdapter;
-    /**
-     * Object that stores tasks values
-     */
+    private Context context;
+    private TaskDatabaseAdapter taskDbAdapter;
     private ContentValues taskValues;
-    /**
-     * taskName column
-     */
-    private final String taskNameClmn;
-    /**
-     * subtasksName column
-     */
-    private final String subtasksNameClmn;
-    /**
-     * indexName column
-     */
-    private final String indexNameClmn;
-    /**
-     * Name of table
-     */
-    private final String tableName;
+    private String taskNameClmn, subtasksNameClmn, tableName, indexNameClmn;
 
-    /**
-     * Constructor for TaskDatabaseHelper
-     * @param context context for TaskDatabaseAdapter
-     */
-    public TaskDatabaseHelper(Context context){
+    TaskDatabaseHelper(Context context){
         this.context = context;
         taskDbAdapter = new TaskDatabaseAdapter(this.context);
+        // System.out.println("HELLO");
         taskNameClmn = taskDbAdapter.getTaskNameClmn();
         subtasksNameClmn = taskDbAdapter.getSubtasksNameClmn();
         indexNameClmn = taskDbAdapter.getIndexNameClmn();
@@ -62,26 +36,18 @@ public class TaskDatabaseHelper {
     }
 
 
-    /**
-     * Method to insert new task with string[]
-     * @param taskName name of task
-     * @param subtasks String[] of subtasks
-     */
     public void insertTask(String taskName, String[] subtasks){
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         taskValues = new ContentValues();
         taskValues.put(taskNameClmn, taskName);
         taskValues.put(subtasksNameClmn, convertArrToStr(subtasks));
         db.insert(tableName, null, taskValues);
+        System.out.println("WELL DONE");
 
         db.close();
     }
 
-    /**
-     * Method to insert new task with ArrayList
-     * @param taskName name of task
-     * @param subtasks ArrayList<String> of subtasks
-     */
+
     public void insertTask(String taskName, ArrayList<String> subtasks){
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         taskValues = new ContentValues();
@@ -107,11 +73,6 @@ public class TaskDatabaseHelper {
         db.close();*/
     }
 
-    /**
-     * Update task by taskName in database
-     * @param taskName name of task
-     * @param subtasks array of subtasks
-     */
     public void updateTaskByName(String taskName, ArrayList<String> subtasks){
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         taskValues = new ContentValues();
@@ -123,12 +84,6 @@ public class TaskDatabaseHelper {
         db.close();
     }
 
-    /**
-     * Update task by id in database
-     * @param index id
-     * @param taskName name of task
-     * @param subtasks array subtasks
-     */
     public void updateTaskByIndex(int index, String taskName, ArrayList<String> subtasks){
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         taskValues = new ContentValues();
@@ -137,6 +92,9 @@ public class TaskDatabaseHelper {
         db.update(tableName, taskValues, indexNameClmn + " = ?", new String[] {Integer.toString(index)});
         //db.execSQL("DROP TABLE " + tableName);
         db.close();
+
+        // Note: logging
+        //System.out.println("WELL DONE");
     }
 
     /*public void deleteTaskByName(String taskName){
@@ -146,10 +104,6 @@ public class TaskDatabaseHelper {
                 new String[] {taskName});
     }*/
 
-    /**
-     * Delete task by id
-     * @param index id
-     */
     public void deleteTaskByIndex(int index){
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         db.delete(tableName,
@@ -206,11 +160,6 @@ public class TaskDatabaseHelper {
         return data;
     }*/
 
-    /**
-     * Get task by id in HashMap
-     * @param index id
-     * @return HashMap<String, String[]>
-     */
     public HashMap<String,String[]> getTaskByIndex(int index){
         HashMap<String,String[]> data = new HashMap<>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
@@ -226,12 +175,8 @@ public class TaskDatabaseHelper {
         return data;
     }
 
-    /**
-     * Get all tasks from database in HashMap
-     * @return HashMap<Integer, String[]>
-     */
     public HashMap<Integer,String[]> getAllTasks(){
-        HashMap<Integer,String[]> data = new HashMap<>();
+        HashMap<Integer,String[]> data = new HashMap<Integer, String[]>();
         SQLiteDatabase db = taskDbAdapter.getReadableDatabase();
         //db.execSQL("DROP TABLE " + tableName);
         try {
@@ -241,6 +186,7 @@ public class TaskDatabaseHelper {
             while(cursor.moveToNext()){
                 data.put(Integer.parseInt(cursor.getString(0)),
                         (cursor.getString(1) + "," + cursor.getString(2)).split(","));
+                //System.out.println((cursor.getString(1)+ "," + cursor.getString(2)).split(","));
             }
         } catch (SQLiteException e){
             System.out.println("errror");
@@ -248,63 +194,43 @@ public class TaskDatabaseHelper {
         return data;
     }
 
-    /**
-     * Method to get all taskNames from database in ArrayList<String>
-     * @return ArrayList<String>
-     */
     public ArrayList<String> getAllTasksNames(){
-        ArrayList<String> taskNames = new ArrayList<>();
+        ArrayList<String> taskNames = new ArrayList<String>();
         HashMap<Integer, String[]> data = getAllTasks();
+        //System.out.println("ArrayList is " + taskNames);
         for (int id = 1; id <= data.size(); id++) {
-            System.out.println("There is our elements: " + Objects.requireNonNull(data.get(id))[0]);
-            taskNames.add(Objects.requireNonNull(data.get(id))[0]);
+            System.out.println("There is our elements: " + data.get(id)[0]);
+            taskNames.add(data.get(id)[0].toString());
         }
         return taskNames;
     }
 
-    /**
-     * Convert Object[] to String to store in database
-     * @param arr Object[]
-     * @return converted string
-     */
     private String convertArrToStr(Object[] arr){
-        StringBuilder str = new StringBuilder();
+        String str = "";
         for(int i = 0; i < arr.length; i++){
-            str.append(Arrays.toString(arr));
+            str += arr.toString();
         }
-        return str.toString();
+        return str;
     }
 
-<<<<<<< HEAD
     public String convertArrToStr(ArrayList<String> arr){
         String str = "";
-=======
-    /**
-     * Convert ArrayList<String> to String to store in database
-     * @param arr array
-     * @return converted string
-     */
-    private String convertArrToStr(ArrayList<String> arr){
-        StringBuilder str = new StringBuilder();
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2
         for(int i = 0; i < arr.size(); i++){
-            str.append(arr.get(i)).append(",");
+            str += arr.get(i).toString() + ",";
         }
-        return str.toString();
+        return str;
     }
 
-    /**
-     * Method to rewrite database with new data hashmap
-     */
-    private void rewriteDB(){
-        HashMap<Integer,String[]> data;
+   private void rewriteDB(){
+        HashMap<Integer,String[]> data = new HashMap<>();
         data = getAllTasks();
         SQLiteDatabase db = taskDbAdapter.getWritableDatabase();
         db.execSQL("DELETE FROM " + tableName);
         for(int id : data.keySet()){
-            System.out.println(Objects.requireNonNull(data.get(id))[0]);
-            insertTask(Objects.requireNonNull(data.get(id))[0], data.get(id));
+            System.out.println(data.get(id)[0]);
+            insertTask(data.get(id)[0], data.get(id));
         }
+        //System.out.println("trying to delete");
     }
 }
 

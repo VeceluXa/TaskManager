@@ -1,4 +1,4 @@
-package com.bsuir.taskmanager.Activities;
+package com.bsuir.taskmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,10 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.bsuir.taskmanager.Adapters.TasksAdapter;
-import com.bsuir.taskmanager.R;
-import com.bsuir.taskmanager.TaskDatabaseHelper;
 
 import java.util.ArrayList;
 

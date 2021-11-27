@@ -15,10 +15,7 @@
         android:autofillHints="name"
         android:gravity="bottom"
         android:hint="@string/task_name"
-<<<<<<< HEAD
         android:text=""
-=======
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2
         android:imeOptions="actionGo"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="-16dp"
@@ -46,11 +43,7 @@
         android:layout_marginEnd="241dp"
         android:layout_marginBottom="0dp"
         android:onClick="onDeleteTask"
-<<<<<<< HEAD
         android:text="@string/delete_btn"
-=======
-        android:text="@string/delbtn_description"
->>>>>>> 5a5e9bf512000dd2e825d2cabf464d0bf788cab2
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
