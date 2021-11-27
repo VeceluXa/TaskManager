@@ -17,53 +17,63 @@ import com.bsuir.taskmanager.R;
 import com.bsuir.taskmanager.TaskDatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class EditActivity extends AppCompatActivity {
 
     private EditText task;
-    private int count=1;
     private SubtaskAdapter adapter = null;
     private RecyclerView rv;
     private int id;
-    private ArrayList<String> subtasks;
+    private ArrayList<String> subtasks; //= new ArrayList<String>();
+    //private String[] oldSubtasks;
 
     private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_edit);
+
         id = getIntent().getExtras().getInt(Intent.EXTRA_INDEX);
         task = findViewById(R.id.taskTODO);
-        HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
-        for(int id : data.keySet())
-            System.out.println(data.get(id)[0] + " ");
-        task.addTextChangedListener(new TextWatcher() {
+        rv = findViewById(R.id.subtasksList);
+
+        HashMap<String, String[]> data = taskDatabaseHelper.getTaskByIndex(id);
+        String taskName = (String) data.keySet().toArray()[0];
+        try {
+            subtasks = new ArrayList<String>(Arrays.asList(Objects.requireNonNull(data.get(taskName))));
+        }catch (Throwable e){
+            System.out.println(e);
+        }
+        adapter = new SubtaskAdapter(subtasks);
+
+        task.setText(taskName);
+
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        /*task.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             /**
              * This method gets called when user presses Enter to create new task
              * @param s editable string
-             */
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (adapter == null) {
-                    adapter = new SubtaskAdapter();
+                    adapter = new SubtaskAdapter(subtasks);
                     rv.setAdapter(adapter);
                 }
             }
-        });
+        });*/
 //        task.setOnFocusChangeListener((view, hasFocus) -> {
 //            if (!hasFocus) {
 //                if (adapter == null) {
@@ -72,8 +82,6 @@ public class EditActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-        rv = findViewById(R.id.subtasksList);
-        rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
 
@@ -87,7 +95,7 @@ public class EditActivity extends AppCompatActivity {
             subtasks = adapter.getSubtasks();
         else
             subtasks.add(null); // Error line! //
-        taskDatabaseHelper.updateTaskByIndex(id+1, taskName, subtasks);
+        taskDatabaseHelper.updateTaskByIndex(id, taskName, subtasks);
         //taskDatabaseHelper.updateTaskByName(taskName, subtasks);
         HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
         for(int id : data.keySet())
@@ -97,7 +105,7 @@ public class EditActivity extends AppCompatActivity {
         finish();
     }
     public void onDeleteTask(View view){
-        taskDatabaseHelper.deleteTaskByIndex(id+1);
+        taskDatabaseHelper.deleteTaskByIndex(id);
         finish();
     }
 

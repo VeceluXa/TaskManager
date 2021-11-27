@@ -219,7 +219,7 @@ public class TaskDatabaseHelper {
                 indexNameClmn + " = ?",
                 new String[] {Integer.toString(index)},
                 null, null, null, null);
-
+        cursor.moveToFirst();
         data.put(cursor.getString(0), cursor.getString(1).split(","));
         cursor.close();
         db.close();
@@ -263,14 +263,22 @@ public class TaskDatabaseHelper {
     }
 
     /**
+     * Method to get subtasks of a task from database in String[]
+     * @return String[]
+     */
+    public String[] getSubtasksByIndex(int index){
+        return getTaskByIndex(index).get(index);
+    }
+
+    /**
      * Convert Object[] to String to store in database
      * @param arr Object[]
      * @return converted string
      */
     private String convertArrToStr(Object[] arr){
         StringBuilder str = new StringBuilder();
-        for(int i = 0; i < arr.length; i++){
-            str.append(Arrays.toString(arr));
+        for (Object o : arr) {
+            str.append(o).append(",");
         }
         return str.toString();
     }

@@ -16,7 +16,7 @@ public class TaskDatabaseAdapter extends SQLiteOpenHelper {
     /**
      * Version of database
      */
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 2;
     /**
      * Name of table
      */

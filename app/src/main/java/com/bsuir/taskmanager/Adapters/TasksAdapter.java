@@ -106,7 +106,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         // Clicked on TextView
         holder.textTask.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditActivity.class);
-            intent.putExtra(Intent.EXTRA_INDEX, holder.getAdapterPosition());
+            intent.putExtra(Intent.EXTRA_INDEX, holder.getAdapterPosition()+1);
             context.startActivity(intent);
         });
     }

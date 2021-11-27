@@ -28,13 +28,18 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
     /**
      * Array list that stores subtasks
      */
-    private final ArrayList<String> subtasks = new ArrayList<>();
+    private ArrayList<String> subtasks = new ArrayList<>();
 
     /**
      * Basic constructor for subtasks
      */
+    public SubtaskAdapter(ArrayList<String> subtasks){
+        this.subtasks = subtasks;
+        count = subtasks.size()+1;
+    }
+
     public SubtaskAdapter(){
-        count = 1;
+        this.count = 1;
     }
 
     /**
@@ -87,9 +92,12 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
                 try {
                     subtasks.set(holder.getAdapterPosition(), editable.toString());
                 } catch (IndexOutOfBoundsException e){
+                    System.out.println(e);
                     //subtasks.add(holder.getAdapterPosition(), editable.toString());
-                    if(count <= 10)
+                    if(count <= 10) {
+                        System.out.println("Adding subtask");
                         addItem(editable.toString());
+                    }
                     holder.delBtn.setVisibility(View.VISIBLE);
                 }
             }
