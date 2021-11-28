@@ -92,7 +92,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
                 try {
                     subtasks.set(holder.getAdapterPosition(), editable.toString());
                 } catch (IndexOutOfBoundsException e){
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                     //subtasks.add(holder.getAdapterPosition(), editable.toString());
                     if(count <= 10) {
                         System.out.println("Adding subtask");
@@ -150,7 +150,8 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
             }
         });*/
 
-        holder.delBtn.setOnClickListener(view -> rmItem(holder.getAdapterPosition()));
+        holder.delBtn.setOnClickListener(view ->
+                rmItem(holder.getAdapterPosition()));
 
     }
 

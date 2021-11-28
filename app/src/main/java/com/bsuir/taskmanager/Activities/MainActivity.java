@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
      * This method gets called when activity goes in focus.
      * In our case after CreateActivity is finished
      */
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();

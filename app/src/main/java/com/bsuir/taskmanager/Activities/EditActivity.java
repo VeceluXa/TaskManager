@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bsuir.taskmanager.Adapters.SubtaskAdapter;
 import com.bsuir.taskmanager.R;
@@ -21,39 +18,63 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Window to edit tasks from main screen
+ */
 public class EditActivity extends AppCompatActivity {
 
-    private EditText task;
-    private SubtaskAdapter adapter = null;
-    private RecyclerView rv;
+    /**
+     * Id of task
+     */
     private int id;
-    private ArrayList<String> subtasks; //= new ArrayList<String>();
-    //private String[] oldSubtasks;
-
+    /**
+     * Class to connect to SQLite database
+     */
     private final TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
+    /**
+     * Adapter for RecyclerView
+     */
+    private SubtaskAdapter adapter;
+    /**
+     * Array of subtasks from database
+     */
+    private ArrayList<String> subtasks;
+    /**
+     * Field with task name
+     */
+    private EditText task;
 
+    /**
+     * This method gets called when activity is created
+     * @param savedInstanceState saved configuration
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        // Get task's id from intent
         id = getIntent().getExtras().getInt(Intent.EXTRA_INDEX);
-        task = findViewById(R.id.taskTODO);
-        rv = findViewById(R.id.subtasksList);
 
+        // Get data from database
         HashMap<String, String[]> data = taskDatabaseHelper.getTaskByIndex(id);
         String taskName = (String) data.keySet().toArray()[0];
         try {
-            subtasks = new ArrayList<String>(Arrays.asList(Objects.requireNonNull(data.get(taskName))));
-        }catch (Throwable e){
-            System.out.println(e);
+            subtasks = new ArrayList<>(Arrays.asList(Objects.requireNonNull(data.get(taskName))));
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
         }
+
+        // Add RecyclerView and it's Adapter
+        RecyclerView rv = findViewById(R.id.subtasksList);
         adapter = new SubtaskAdapter(subtasks);
-
-        task.setText(taskName);
-
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
+
+        // Set task name text
+        task = findViewById(R.id.taskTODO);
+        task.setText(taskName);
+    }
 
         /*task.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,30 +103,40 @@ public class EditActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-    }
+//    }
 
 
     /**
-     * This method gets called when user saves task
-     * @param view view to call MainActivity
+     * This method gets called when user presses "Save" button
+     * @param view view to get button listener
      */
     public void onSaveTask(View view) {
         String taskName = task.getText().toString();
-        if(adapter != null)
-            subtasks = adapter.getSubtasks();
-        else
-            subtasks.add(null); // Error line! //
+        subtasks = adapter.getSubtasks();
+        // Adapter is always != null cause it was constructed in onCreate
+//        if(adapter != null)
+//            subtasks = adapter.getSubtasks();
+//        else
+//            subtasks.add(null); // Error line! //
         taskDatabaseHelper.updateTaskByIndex(id, taskName, subtasks);
         //taskDatabaseHelper.updateTaskByName(taskName, subtasks);
         HashMap<Integer, String[]> data = taskDatabaseHelper.getAllTasks();
         for(int id : data.keySet())
-            System.out.println(data.get(id)[0] + " ");
+            System.out.println(Objects.requireNonNull(data.get(id))[0] + " ");
 
         // Close CreateActivity by calling onFinish()
         finish();
     }
+
+    /**
+     * This method gets called when user presses "Delete" button
+     * @param view view to get button listener
+     */
     public void onDeleteTask(View view){
+        // Delete task
         taskDatabaseHelper.deleteTaskByIndex(id);
+
+        // Close CreateActivity by calling onFinish()
         finish();
     }
 
