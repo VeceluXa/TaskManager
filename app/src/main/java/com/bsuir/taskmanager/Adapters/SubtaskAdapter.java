@@ -69,16 +69,16 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
 
         int maxIndex = count - 1;
 
-        if(maxIndex > 1) {
+
             if (position < maxIndex) {
                 System.out.println("Putting on: " + position + " - " + maxIndex + "; " + subtasks.get(position));
                 holder.subtaskField.setText(subtasks.get(position));
                 holder.delBtn.setVisibility(View.VISIBLE);
-            } else {
+            } else if(maxIndex > 1) {
                 holder.subtaskField.setText("");
                 holder.delBtn.setVisibility(View.GONE);
             }
-        }
+
 
         holder.subtaskField.addTextChangedListener(new TextWatcher() {
             /**
@@ -101,6 +101,7 @@ public class SubtaskAdapter extends RecyclerView.Adapter<SubtaskAdapter.SubtaskV
                     holder.delBtn.setVisibility(View.VISIBLE);
                 }
             }
+
 
             /**
              * Unused method
